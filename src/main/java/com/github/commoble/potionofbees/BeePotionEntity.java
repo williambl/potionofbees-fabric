@@ -23,7 +23,7 @@ public class BeePotionEntity extends ProjectileItemEntity
 	@Override
 	protected Item func_213885_i()
 	{
-		return PotionOfBeesMod.BEE_POTION_ITEM.get();
+		return RegistryObjects.BEE_POTION_ITEM.get();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class BeePotionEntity extends ProjectileItemEntity
 				i--;
 				Vec3d hitVec = result.getHitVec();
 				BlockPos spawnPos = new BlockPos(hitVec.x, hitVec.y, hitVec.z);
-				Entity ent = PotionOfBeesMod.BEE_POTION_ENTITY_TYPE.get().spawn(this.world, null, null, spawnPos, SpawnReason.EVENT, false, false);
+				Entity ent = RegistryObjects.BEE_POTION_ENTITY_TYPE.get().spawn(this.world, null, null, spawnPos, SpawnReason.EVENT, false, false);
 				if (ent instanceof BeeEntity)
 				{
 					BeeEntity bee = (BeeEntity)ent;

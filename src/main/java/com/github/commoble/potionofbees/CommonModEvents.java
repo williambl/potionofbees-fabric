@@ -8,7 +8,8 @@ public class CommonModEvents
 {
 	public static void onRegisterItems(Registrator<Item> reg)
 	{
-		reg.register(PotionOfBeesMod.BEE_POTION, new BeePotionItem(new Item.Properties().group(ItemGroup.BREWING)));
+		reg.register(ResourceLocations.BEE_POTION, new BeePotionItem(new Item.Properties().group(ItemGroup.BREWING)));
+		reg.register(ResourceLocations.SPLASH_BEE_POTION, new SplashBeePotionItem(new Item.Properties().group(ItemGroup.BREWING)));
 	}
 	
 	public static void onRegisterEntityTypes(Registrator<EntityType<?>> reg)

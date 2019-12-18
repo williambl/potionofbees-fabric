@@ -1,14 +1,17 @@
 package com.github.commoble.potionofbees;
 
-import net.minecraft.entity.item.ExperienceBottleEntity;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.UseAction;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class BeePotionItem extends Item
@@ -19,18 +22,22 @@ public class BeePotionItem extends Item
 	}
 
 	/**
-	 * Returns true if this item has an enchantment glint. By default, this returns
-	 * <code>stack.isItemEnchanted()</code>, but other items can override it (for
-	 * instance, written books always return true).
-	 * 
-	 * Note that if you override this method, you generally want to also call the
-	 * super version (on {@link Item}) to get the glint for enchanted items. Of
-	 * course, that is unnecessary if the overwritten version always returns true.
+	 * How long it takes to use or consume an item
 	 */
 	@Override
-	public boolean hasEffect(ItemStack stack)
+	public int getUseDuration(ItemStack stack)
 	{
-		return true;
+		return 32;
+	}
+
+	/**
+	 * returns the action that specifies what animation to play when the items is
+	 * being used
+	 */
+	@Override
+	public UseAction getUseAction(ItemStack stack)
+	{
+		return UseAction.DRINK;
 	}
 
 	/**
@@ -40,23 +47,51 @@ public class BeePotionItem extends Item
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		worldIn.playSound((PlayerEntity) null, playerIn.func_226277_ct_(), playerIn.func_226278_cu_(), playerIn.func_226281_cx_(), SoundEvents.ENTITY_EXPERIENCE_BOTTLE_THROW,
-			SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		playerIn.setActiveHand(handIn);
+		return ActionResult.func_226248_a_(playerIn.getHeldItem(handIn));
+	}
+
+	/**
+	 * Called when the player finishes using this Item (E.g. finishes eating.). Not
+	 * called when the player stops using the Item before the action is complete.
+	 */
+	@Override
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
+	{
+		PlayerEntity playerentity = entityLiving instanceof PlayerEntity ? (PlayerEntity) entityLiving : null;
+		if (playerentity instanceof ServerPlayerEntity)
+		{
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
+		}
+
 		if (!worldIn.isRemote)
 		{
-			ExperienceBottleEntity experiencebottleentity = new ExperienceBottleEntity(worldIn, playerIn);
-			experiencebottleentity.func_213884_b(itemstack);
-			experiencebottleentity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
-			worldIn.addEntity(experiencebottleentity);
+			entityLiving.attackEntityFrom(DamageSource.CRAMMING, 4F);
+			WorldUtil.spawnAngryBees(worldIn, entityLiving.getPositionVec());
 		}
 
-		playerIn.addStat(Stats.ITEM_USED.get(this));
-		if (!playerIn.abilities.isCreativeMode)
+		if (playerentity != null)
 		{
-			itemstack.shrink(1);
+			playerentity.addStat(Stats.ITEM_USED.get(this));
+			if (!playerentity.abilities.isCreativeMode)
+			{
+				stack.shrink(1);
+			}
 		}
 
-		return ActionResult.func_226248_a_(itemstack);
+		if (playerentity == null || !playerentity.abilities.isCreativeMode)
+		{
+			if (stack.isEmpty())
+			{
+				return new ItemStack(Items.GLASS_BOTTLE);
+			}
+
+			if (playerentity != null)
+			{
+				playerentity.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+			}
+		}
+
+		return stack;
 	}
 }
