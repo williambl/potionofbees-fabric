@@ -1,6 +1,5 @@
 package com.github.commoble.potionofbees;
 
-import net.minecraft.entity.item.ExperienceBottleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,10 +30,10 @@ public class SplashBeePotionItem extends Item
 			SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		if (!worldIn.isRemote)
 		{
-			ExperienceBottleEntity experiencebottleentity = new ExperienceBottleEntity(worldIn, playerIn);
-			experiencebottleentity.func_213884_b(itemstack);
-			experiencebottleentity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
-			worldIn.addEntity(experiencebottleentity);
+			SplashBeePotionEntity potionEntity = SplashBeePotionEntity.asThrownEntity(worldIn, playerIn);
+			potionEntity.func_213884_b(itemstack);
+			potionEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
+			worldIn.addEntity(potionEntity);
 		}
 
 		playerIn.addStat(Stats.ITEM_USED.get(this));

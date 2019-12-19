@@ -1,5 +1,6 @@
 package com.github.commoble.potionofbees;
 
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -14,8 +15,10 @@ public class CommonModEvents
 	
 	public static void onRegisterEntityTypes(Registrator<EntityType<?>> reg)
 	{
-//		reg.register(
-//			PotionOfBeesMod.BEE_POTION,
-//			EntityType.Builder.create(BeePotionEntity::new,EntityClassification.MISC).build(PotionOfBeesMod.BEE_POTION.toString()));
+		reg.register(
+			ResourceLocations.SPLASH_BEE_POTION,
+			EntityType.Builder.create(SplashBeePotionEntity::new, EntityClassification.MISC)
+			.setCustomClientFactory(SplashBeePotionEntity::spawnOnClient)
+			.build(ResourceLocations.SPLASH_BEE_POTION.toString()));
 	}
 }
