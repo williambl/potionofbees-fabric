@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -26,6 +27,9 @@ public class PotionOfBeesMod
 		final IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		modBus.addGenericListener(Item.class, getRegistrator(CommonModEvents::onRegisterItems));
+		modBus.addGenericListener(Effect.class, getRegistrator(CommonModEvents::onRegisterEffects));
 		modBus.addGenericListener(EntityType.class, getRegistrator(CommonModEvents::onRegisterEntityTypes));
+		
+		modBus.addListener(CommonModEvents::onCommonSetup);
 	}
 }

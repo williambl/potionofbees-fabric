@@ -2,7 +2,7 @@ package com.github.commoble.potionofbees.client;
 
 import com.github.commoble.potionofbees.PotionOfBeesMod;
 import com.github.commoble.potionofbees.RegistryObjects;
-import com.github.commoble.potionofbees.SplashBeePotionEntity;
+import com.github.commoble.potionofbees.SplashPotionOfBeesEntity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -23,7 +23,7 @@ public class ClientModEventHandler
 		RenderingRegistry.registerEntityRenderingHandler(RegistryObjects.getSplashPotionOfBeesEntityType(), ClientModEventHandler::getSplashPotionOfBeesRenderer);
 	}
 	
-	public static SpriteRenderer<SplashBeePotionEntity> getSplashPotionOfBeesRenderer(EntityRendererManager manager)
+	public static SpriteRenderer<SplashPotionOfBeesEntity> getSplashPotionOfBeesRenderer(EntityRendererManager manager)
 	{
 		return new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer());
 	}

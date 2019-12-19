@@ -13,32 +13,32 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class SplashBeePotionEntity extends ProjectileItemEntity
+public class SplashPotionOfBeesEntity extends ProjectileItemEntity
 {
-	public SplashBeePotionEntity(EntityType<? extends SplashBeePotionEntity> entityType, World world)
+	public SplashPotionOfBeesEntity(EntityType<? extends SplashPotionOfBeesEntity> entityType, World world)
 	{
 		super(entityType, world);
 	}
 	
-	private SplashBeePotionEntity(World worldIn, LivingEntity throwerIn)
+	private SplashPotionOfBeesEntity(World worldIn, LivingEntity throwerIn)
 	{
 		super(RegistryObjects.getSplashPotionOfBeesEntityType(), throwerIn, worldIn);
 	}
 	
-	public static SplashBeePotionEntity asThrownEntity(World worldIn, LivingEntity throwerIn)
+	public static SplashPotionOfBeesEntity asThrownEntity(World worldIn, LivingEntity throwerIn)
 	{
-		return new SplashBeePotionEntity(worldIn, throwerIn);
+		return new SplashPotionOfBeesEntity(worldIn, throwerIn);
 	}
 	
-	public static SplashBeePotionEntity spawnOnClient(SpawnEntity spawnPacket, World world)
+	public static SplashPotionOfBeesEntity spawnOnClient(SpawnEntity spawnPacket, World world)
 	{
-		return new SplashBeePotionEntity(RegistryObjects.getSplashPotionOfBeesEntityType(), world);
+		return new SplashPotionOfBeesEntity(RegistryObjects.getSplashPotionOfBeesEntityType(), world);
 	}
 
 	@Override
 	protected Item func_213885_i()
 	{
-		return RegistryObjects.BEE_POTION_ITEM.get();
+		return RegistryObjects.POTION_OF_BEES_ITEM.get();
 	}
 
 	/**

@@ -10,10 +10,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-public class SplashBeePotionItem extends Item
+public class SplashPotionOfBeesItem extends Item
 {
 
-	public SplashBeePotionItem(Properties properties)
+	public SplashPotionOfBeesItem(Properties properties)
 	{
 		super(properties);
 	}
@@ -30,7 +30,7 @@ public class SplashBeePotionItem extends Item
 			SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		if (!worldIn.isRemote)
 		{
-			SplashBeePotionEntity potionEntity = SplashBeePotionEntity.asThrownEntity(worldIn, playerIn);
+			SplashPotionOfBeesEntity potionEntity = SplashPotionOfBeesEntity.asThrownEntity(worldIn, playerIn);
 			potionEntity.func_213884_b(itemstack);
 			potionEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
 			worldIn.addEntity(potionEntity);

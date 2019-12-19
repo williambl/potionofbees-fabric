@@ -14,9 +14,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class BeePotionItem extends Item
+public class PotionOfBeesItem extends Item
 {
-	public BeePotionItem(Properties properties)
+	public PotionOfBeesItem(Properties properties)
 	{
 		super(properties);
 	}
