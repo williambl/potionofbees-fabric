@@ -26,7 +26,9 @@ public class WorldUtil
 		
 		
 		int bees = 3 + world.rand.nextInt(5) + world.rand.nextInt(5);
-		int ticksToExist = 1800/bees;
+		
+		int maxTime = 3000;
+		int ticksToExist = maxTime/bees;
 
 		for (int i=0; i<bees; i++)
 		{
@@ -36,7 +38,7 @@ public class WorldUtil
 			{
 				BeeEntity bee = (BeeEntity)ent;
 				bee.setPosition(vec.x, vec.y, vec.z);
-				bee.addPotionEffect(new EffectInstance(Effects.SPEED, 1800, 1, false, false));
+				bee.addPotionEffect(new EffectInstance(Effects.SPEED, maxTime, 1, false, false));
 				bee.addPotionEffect(new EffectInstance(RegistryObjects.EVANESCENCE_EFFECT.get(), ticksToExist, 0, false, false));
 				foundTarget.ifPresent(target -> { // make bee angry at target
 						bee.func_226391_a_(target);

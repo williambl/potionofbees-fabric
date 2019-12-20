@@ -25,7 +25,9 @@ public class PotionOfBeesRecipe implements IBrewingRecipe
 	@Override
 	public ItemStack getOutput(ItemStack input, ItemStack ingredient)
 	{
-		return new ItemStack(RegistryObjects.POTION_OF_BEES_ITEM.get());
+		return this.isInput(input) && this.isIngredient(ingredient)
+			? new ItemStack(RegistryObjects.POTION_OF_BEES_ITEM.get())
+			: ItemStack.EMPTY;
 	}
 
 }
