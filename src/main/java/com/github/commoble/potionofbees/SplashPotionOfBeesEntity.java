@@ -38,7 +38,7 @@ public class SplashPotionOfBeesEntity extends ProjectileItemEntity
 	@Override
 	protected Item func_213885_i()
 	{
-		return RegistryObjects.POTION_OF_BEES_ITEM.get();
+		return RegistryObjects.SPLASH_POTION_OF_BEES_ITEM;
 	}
 
 	/**

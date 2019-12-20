@@ -39,7 +39,7 @@ public class WorldUtil
 				BeeEntity bee = (BeeEntity)ent;
 				bee.setPosition(vec.x, vec.y, vec.z);
 				bee.addPotionEffect(new EffectInstance(Effects.SPEED, maxTime, 1, false, false));
-				bee.addPotionEffect(new EffectInstance(RegistryObjects.EVANESCENCE_EFFECT.get(), ticksToExist, 0, false, false));
+				bee.addPotionEffect(new EffectInstance(RegistryObjects.EVANESCENCE_EFFECT, ticksToExist, 0, false, false));
 				foundTarget.ifPresent(target -> { // make bee angry at target
 						bee.func_226391_a_(target);
 						bee.targetSelector.addGoal(0, new AttackThingsThatAreNotBeesGoal(bee));

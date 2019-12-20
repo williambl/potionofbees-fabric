@@ -10,7 +10,7 @@ public class SplashPotionOfBeesRecipe implements IBrewingRecipe
 	@Override
 	public boolean isInput(ItemStack input)
 	{
-		return input.getItem() == RegistryObjects.POTION_OF_BEES_ITEM.get();
+		return input.getItem() == RegistryObjects.POTION_OF_BEES_ITEM;
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class SplashPotionOfBeesRecipe implements IBrewingRecipe
 	public ItemStack getOutput(ItemStack input, ItemStack ingredient)
 	{
 		return this.isInput(input) && this.isIngredient(ingredient)
-			? new ItemStack(RegistryObjects.SPLASH_POTION_OF_BEES_ITEM.get())
+			? new ItemStack(RegistryObjects.SPLASH_POTION_OF_BEES_ITEM)
 			: ItemStack.EMPTY;
 	}
 
