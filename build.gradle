@@ -13,6 +13,17 @@ group = project.maven_group
 minecraft {
 }
 
+repositories {
+    maven {
+        name = "CurseForge"
+        url "https://minecraft.curseforge.com/api/maven"
+    }
+    maven {
+        name = "GitHub"
+        url "https://jitpack.io"
+    }
+}
+
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -23,6 +34,10 @@ dependencies {
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
+
+    // NBT Crafting
+    modCompile ("com.github.siphalor:nbt-crafting:${project.nbtcrafting_version}")
+    include "com.github.siphalor:nbt-crafting:${project.nbtcrafting_version}"
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.

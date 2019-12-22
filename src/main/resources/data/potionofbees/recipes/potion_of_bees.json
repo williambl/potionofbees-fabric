@@ -1,0 +1,17 @@
+{
+  "type": "nbtcrafting:brewing",
+  "base": {
+    "item": "minecraft:potion",
+    "data": {
+      "require": {
+        "Potion": "minecraft:awkward"
+      }
+    }
+  },
+  "ingredient": {
+    "tag": "potionofbees:potion_of_bees_ingredients"
+  },
+  "result": {
+    "item": "potionofbees:potion_of_bees"
+  }
+}

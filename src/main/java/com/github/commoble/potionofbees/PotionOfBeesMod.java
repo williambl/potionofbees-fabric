@@ -1,11 +1,9 @@
 package com.github.commoble.potionofbees;
 
-import com.github.commoble.potionofbees.mixin.BrewingRecipeRegistryAccessorMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityCategory;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -30,7 +28,5 @@ public class PotionOfBeesMod implements ModInitializer
 						SplashPotionOfBeesEntity::new
 				).build()
 		);
-		BrewingRecipeRegistryAccessorMixin.registerItemRecipe(Items.POTION, Blocks.HONEYCOMB_BLOCK.asItem(), RegistryObjects.POTION_OF_BEES_ITEM);
-		BrewingRecipeRegistryAccessorMixin.registerItemRecipe(RegistryObjects.POTION_OF_BEES_ITEM, Items.GUNPOWDER, RegistryObjects.SPLASH_POTION_OF_BEES_ITEM);
 	}
 }

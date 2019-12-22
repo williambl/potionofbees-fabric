@@ -33,6 +33,7 @@
   "depends": {
     "fabricloader": ">=0.7.2",
     "fabric": "*",
-    "minecraft": "1.15.x"
+    "minecraft": "1.15.x",
+    "nbtcrafting": ">=1.2.7"
   }
 }

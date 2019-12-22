@@ -1,0 +1,12 @@
+{
+  "type": "nbtcrafting:brewing",
+  "base": {
+    "item": "potionofbees:potion_of_bees"
+  },
+  "ingredient": {
+    "item": "minecraft:gunpowder"
+  },
+  "result": {
+    "item": "potionofbees:splash_potion_of_bees"
+  }
+}
