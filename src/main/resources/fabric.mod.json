@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "potionofbees",
   "version": "${version}",
 
-  "name": "Potion Of Bess",
+  "name": "Potion Of Bees",
   "description": "Brewing Recipes:\nAwkward Potion + Honeycomb Block = Potion of Bees\nPotion of Bees + Gunpowder = Splash Potion of Bees",
   "authors": [
     "Commoble",
