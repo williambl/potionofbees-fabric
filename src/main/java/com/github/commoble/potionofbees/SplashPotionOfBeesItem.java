@@ -11,7 +11,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class SplashPotionOfBeesItem extends SplashPotionItem
+public class SplashPotionOfBeesItem extends Item
 {
 
 	public SplashPotionOfBeesItem(Settings settings)

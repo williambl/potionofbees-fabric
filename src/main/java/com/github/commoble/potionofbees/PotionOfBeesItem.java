@@ -15,7 +15,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class PotionOfBeesItem extends PotionItem
+public class PotionOfBeesItem extends Item
 {
 	public PotionOfBeesItem(Settings settings)
 	{
