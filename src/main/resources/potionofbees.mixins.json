@@ -3,8 +3,7 @@
   "package": "com.github.commoble.potionofbees.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BeeEntityTargetSelectorAccessorMixin",
-    "BrewingRecipeRegistryAccessorMixin"
+    "BeeEntityTargetSelectorAccessorMixin"
   ],
   "client": [
   ],

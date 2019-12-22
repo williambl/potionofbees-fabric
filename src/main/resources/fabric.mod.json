@@ -27,7 +27,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "potionofbees.mixins.json"
   ],
 
   "depends": {
