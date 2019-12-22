@@ -1,25 +1,25 @@
 package com.github.commoble.potionofbees;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectType;
 
-public class EvanescenceEffect extends Effect
+public class EvanescenceEffect extends StatusEffect
 {
-	public EvanescenceEffect(EffectType typeIn, int liquidColorIn)
+	public EvanescenceEffect(StatusEffectType typeIn, int liquidColorIn)
 	{
 		super(typeIn, liquidColorIn);
 	}
 
 	@Override
-	public boolean isReady(int duration, int amplifier)
+	public boolean canApplyUpdateEffect(int duration, int amplifier)
 	{
 		return duration <= 1;
 	}
 
 	@Override
-	public void performEffect(LivingEntity entityLivingBaseIn, int amplifier)
+	public void applyUpdateEffect(LivingEntity entityLivingBaseIn, int amplifier)
 	{
-		entityLivingBaseIn.onKillCommand();
+		entityLivingBaseIn.kill();
 	}
 }

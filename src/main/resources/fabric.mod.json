@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "modid",
+  "version": "${version}",
+
+  "name": "Potion Of Bess",
+  "description": "Brewing Recipes:\nAwkward Potion + Honeycomb Block = Potion of Bees\nPotion of Bees + Gunpowder = Splash Potion of Bees",
+  "authors": [
+    "Commoble",
+    "Willbl3pic"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/potion-of-bees",
+    "sources": "https://github.com/williambl/potionofbees"
+  },
+
+  "license": "MIT",
+  "icon": "logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.commoble.potionofbees.PotionOfBeesMod"
+    ],
+    "client": [
+      "com.github.commoble.potionofbees.client.PotionOfBeesModClient"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  }
+}

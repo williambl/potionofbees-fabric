@@ -3,45 +3,42 @@ package com.github.commoble.potionofbees;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
+import net.minecraft.item.SplashPotionItem;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class SplashPotionOfBeesItem extends Item
+public class SplashPotionOfBeesItem extends SplashPotionItem
 {
 
-	public SplashPotionOfBeesItem(Properties properties)
+	public SplashPotionOfBeesItem(Settings settings)
 	{
-		super(properties);
+		super(settings);
 	}
 
-	/**
-	 * Called to trigger the item's "innate" right click behavior. To handle when
-	 * this item is used on a Block, see {@link #onItemUse}.
-	 */
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		worldIn.playSound((PlayerEntity) null, playerIn.func_226277_ct_(), playerIn.func_226278_cu_(), playerIn.func_226281_cx_(), SoundEvents.ENTITY_EXPERIENCE_BOTTLE_THROW,
-			SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-		if (!worldIn.isRemote)
+		ItemStack itemstack = playerIn.getStackInHand(handIn);
+		worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EXPERIENCE_BOTTLE_THROW,
+			SoundCategory.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
+		if (!worldIn.isClient)
 		{
 			SplashPotionOfBeesEntity potionEntity = SplashPotionOfBeesEntity.asThrownEntity(worldIn, playerIn);
-			potionEntity.func_213884_b(itemstack);
-			potionEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.7F, 1.0F);
-			worldIn.addEntity(potionEntity);
+			potionEntity.setItem(itemstack);
+			potionEntity.setProperties(playerIn, playerIn.pitch, playerIn.yaw, -20.0F, 0.7F, 1.0F);
+			worldIn.spawnEntity(potionEntity);
 		}
 
-		playerIn.addStat(Stats.ITEM_USED.get(this));
-		if (!playerIn.abilities.isCreativeMode)
+		playerIn.incrementStat(Stats.USED.getOrCreateStat(this));
+		if (!playerIn.abilities.creativeMode)
 		{
-			itemstack.shrink(1);
+			itemstack.decrement(1);
 		}
 
-		return ActionResult.func_226248_a_(itemstack);
+		return TypedActionResult.success(itemstack);
 	}
 }

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.github.commoble.potionofbees.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BeeEntityTargetSelectorAccessorMixin",
+    "BrewingRecipeRegistryAccessorMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

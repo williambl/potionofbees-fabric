@@ -1,54 +1,44 @@
 package com.github.commoble.potionofbees;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.UseAction;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
+import net.minecraft.item.PotionItem;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class PotionOfBeesItem extends Item
+public class PotionOfBeesItem extends PotionItem
 {
-	public PotionOfBeesItem(Properties properties)
+	public PotionOfBeesItem(Settings settings)
 	{
-		super(properties);
+		super(settings);
 	}
 
-	/**
-	 * How long it takes to use or consume an item
-	 */
 	@Override
-	public int getUseDuration(ItemStack stack)
+	public int getMaxUseTime(ItemStack stack)
 	{
 		return 32;
 	}
 
-	/**
-	 * returns the action that specifies what animation to play when the items is
-	 * being used
-	 */
 	@Override
 	public UseAction getUseAction(ItemStack stack)
 	{
 		return UseAction.DRINK;
 	}
 
-	/**
-	 * Called to trigger the item's "innate" right click behavior. To handle when
-	 * this item is used on a Block, see {@link #onItemUse}.
-	 */
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn)
 	{
-		playerIn.setActiveHand(handIn);
-		return ActionResult.func_226248_a_(playerIn.getHeldItem(handIn));
+		playerIn.setCurrentHand(handIn);
+		return TypedActionResult.consume(playerIn.getStackInHand(handIn));
 	}
 
 	/**
@@ -56,30 +46,30 @@ public class PotionOfBeesItem extends Item
 	 * called when the player stops using the Item before the action is complete.
 	 */
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving)
+	public ItemStack finishUsing(ItemStack stack, World worldIn, LivingEntity entityLiving)
 	{
 		PlayerEntity playerentity = entityLiving instanceof PlayerEntity ? (PlayerEntity) entityLiving : null;
 		if (playerentity instanceof ServerPlayerEntity)
 		{
-			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
+			Criterions.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
 		}
 
-		if (!worldIn.isRemote)
+		if (!worldIn.isClient)
 		{
-			entityLiving.attackEntityFrom(DamageSource.CRAMMING, 4F);
-			WorldUtil.spawnAngryBees(worldIn, entityLiving.getPositionVec());
+			entityLiving.damage(DamageSource.CRAMMING, 4F);
+			WorldUtil.spawnAngryBees(worldIn, entityLiving.getPosVector());
 		}
 
 		if (playerentity != null)
 		{
-			playerentity.addStat(Stats.ITEM_USED.get(this));
-			if (!playerentity.abilities.isCreativeMode)
+			playerentity.incrementStat(Stats.USED.getOrCreateStat(this));
+			if (!playerentity.abilities.creativeMode)
 			{
-				stack.shrink(1);
+				stack.decrement(1);
 			}
 		}
 
-		if (playerentity == null || !playerentity.abilities.isCreativeMode)
+		if (playerentity == null || !playerentity.abilities.creativeMode)
 		{
 			if (stack.isEmpty())
 			{
@@ -88,7 +78,7 @@ public class PotionOfBeesItem extends Item
 
 			if (playerentity != null)
 			{
-				playerentity.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+				playerentity.inventory.insertStack(new ItemStack(Items.GLASS_BOTTLE));
 			}
 		}
 

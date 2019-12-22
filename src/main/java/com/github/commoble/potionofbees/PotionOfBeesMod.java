@@ -1,35 +1,36 @@
 package com.github.commoble.potionofbees;
 
-import java.util.function.Consumer;
-
+import com.github.commoble.potionofbees.mixin.BrewingRecipeRegistryAccessorMixin;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
-import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Items;
+import net.minecraft.util.registry.Registry;
 
-@Mod(PotionOfBeesMod.MODID)
-public class PotionOfBeesMod
+public class PotionOfBeesMod implements ModInitializer
 {
 	public static final String MODID = "potionofbees";
 	public static final double BEE_SEARCH_RADIUS = 10D;
 
-	public static <T extends IForgeRegistryEntry<T>> Consumer<Register<T>> getRegistrator(Consumer<Registrator<T>> consumer)
-	{
-		return event -> consumer.accept(new Registrator<>(event.getRegistry()));
-	}
-
-	public PotionOfBeesMod()
-	{
-		final IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-		modBus.addGenericListener(Item.class, getRegistrator(CommonModEvents::onRegisterItems));
-		modBus.addGenericListener(Effect.class, getRegistrator(CommonModEvents::onRegisterEffects));
-		modBus.addGenericListener(EntityType.class, getRegistrator(CommonModEvents::onRegisterEntityTypes));
-		
-		modBus.addListener(CommonModEvents::onCommonSetup);
+	@Override
+	public void onInitialize() {
+		Registry.register(Registry.ITEM, Identifiers.POTION_OF_BEES, new PotionOfBeesItem(new Item.Settings().group(ItemGroup.BREWING)));
+		Registry.register(Registry.ITEM, Identifiers.SPLASH_POTION_OF_BEES, new SplashPotionOfBeesItem(new Item.Settings().group(ItemGroup.BREWING)));
+		Registry.register(Registry.STATUS_EFFECT, Identifiers.EVANESCENCE, new EvanescenceEffect(StatusEffectType.HARMFUL, 0));
+		Registry.register(
+				Registry.ENTITY_TYPE,
+				Identifiers.SPLASH_POTION_OF_BEES,
+				FabricEntityTypeBuilder.create(
+						EntityCategory.MISC,
+						SplashPotionOfBeesEntity::new
+				).build()
+		);
+		BrewingRecipeRegistryAccessorMixin.registerItemRecipe(Items.POTION, Blocks.HONEYCOMB_BLOCK.asItem(), RegistryObjects.POTION_OF_BEES_ITEM);
+		BrewingRecipeRegistryAccessorMixin.registerItemRecipe(RegistryObjects.POTION_OF_BEES_ITEM, Items.GUNPOWDER, RegistryObjects.SPLASH_POTION_OF_BEES_ITEM);
 	}
 }
