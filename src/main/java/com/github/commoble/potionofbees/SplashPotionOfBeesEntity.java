@@ -1,9 +1,11 @@
 package com.github.commoble.potionofbees;
 
+import com.github.commoble.potionofbees.networking.Packets;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.network.Packet;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.hit.HitResult;
@@ -19,18 +21,18 @@ public class SplashPotionOfBeesEntity extends ThrownItemEntity
 	
 	private SplashPotionOfBeesEntity(World worldIn, LivingEntity throwerIn)
 	{
-		super(RegistryObjects.SPLASH_POTION_OF_BEES_ENTITY_TYPE, throwerIn, worldIn);
+		super(RegistryObjects.getSplashPotionOfBeesEntityType(), throwerIn, worldIn);
 	}
 	
 	public static SplashPotionOfBeesEntity asThrownEntity(World worldIn, LivingEntity throwerIn)
 	{
 		return new SplashPotionOfBeesEntity(worldIn, throwerIn);
 	}
-	
+
 	@Override
 	protected Item getDefaultItem()
 	{
-		return RegistryObjects.SPLASH_POTION_OF_BEES_ITEM;
+		return RegistryObjects.getSplashPotionOfBeesItem();
 	}
 
 	@Override
@@ -49,5 +51,10 @@ public class SplashPotionOfBeesEntity extends ThrownItemEntity
 		}
 
 		this.remove();
+	}
+
+	@Override
+	public Packet<?> createSpawnPacket() {
+		return Packets.newSpawnPacket(this);
 	}
 }

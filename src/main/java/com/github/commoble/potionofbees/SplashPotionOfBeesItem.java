@@ -1,5 +1,7 @@
 package com.github.commoble.potionofbees;
 
+import com.github.commoble.potionofbees.networking.Packets;
+import net.minecraft.client.network.packet.EntityPositionS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,6 +33,7 @@ public class SplashPotionOfBeesItem extends Item
 			potionEntity.setItem(itemstack);
 			potionEntity.setProperties(playerIn, playerIn.pitch, playerIn.yaw, -20.0F, 0.7F, 1.0F);
 			worldIn.spawnEntity(potionEntity);
+			Packets.dispatchToAllWatching(potionEntity, EntityPositionS2CPacket::new);
 		}
 
 		playerIn.incrementStat(Stats.USED.getOrCreateStat(this));

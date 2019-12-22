@@ -35,7 +35,7 @@ public class WorldUtil
 			BeeEntity bee = EntityType.BEE.spawn(world, null, null, null, spawnPos, SpawnType.EVENT, false, false);
 			bee.setPosition(vec.x, vec.y, vec.z);
 			bee.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, maxTime, 1, false, false));
-			bee.addStatusEffect(new StatusEffectInstance(RegistryObjects.EVANESCENCE_EFFECT, ticksToExist, 0, false, false));
+			bee.addStatusEffect(new StatusEffectInstance(RegistryObjects.getEvanescenceEffect(), ticksToExist, 0, false, false));
 			foundTarget.ifPresent(target -> { // make bee angry at target
 				bee.setBeeAttacker(target);
 				((MobEntityTargetSelectorAccessor) bee).getTargetSelector().add(0, new AttackThingsThatAreNotBeesGoal(bee));
