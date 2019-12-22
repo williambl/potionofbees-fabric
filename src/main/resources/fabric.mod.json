@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Potion Of Bees",
-  "description": "Brewing Recipes:\nAwkward Potion + Honeycomb Block = Potion of Bees\nPotion of Bees + Gunpowder = Splash Potion of Bees",
+  "description": "Adds potions that are also bees.\nBrewing Recipes:\nAwkward Potion + Honeycomb Block = Potion of Bees\nPotion of Bees + Gunpowder = Splash Potion of Bees",
   "authors": [
     "Commoble",
     "Willbl3pic"
