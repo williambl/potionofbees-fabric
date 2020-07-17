@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(MobEntity.class)
 public abstract class BeeEntityTargetSelectorAccessorMixin extends LivingEntity implements MobEntityTargetSelectorAccessor {
     @Shadow @Final
-    public GoalSelector targetSelector;
+    protected GoalSelector targetSelector;
 
     @Override
     public GoalSelector getTargetSelector() {

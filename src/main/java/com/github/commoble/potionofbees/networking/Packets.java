@@ -5,11 +5,11 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.network.packet.EntitySpawnS2CPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.PacketByteBuf;
 
 import java.io.IOException;
 import java.util.Optional;

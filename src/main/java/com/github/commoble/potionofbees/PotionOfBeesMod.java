@@ -1,13 +1,11 @@
 package com.github.commoble.potionofbees;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityCategory;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
 
 public class PotionOfBeesMod implements ModInitializer
@@ -23,10 +21,10 @@ public class PotionOfBeesMod implements ModInitializer
 		Registry.register(
 				Registry.ENTITY_TYPE,
 				Identifiers.SPLASH_POTION_OF_BEES,
-				FabricEntityTypeBuilder.create(
-						EntityCategory.MISC,
-						SplashPotionOfBeesEntity::new
-				).build()
+				EntityType.Builder.create(
+						SplashPotionOfBeesEntity::new,
+						SpawnGroup.MISC
+				).build(Identifiers.SPLASH_POTION_OF_BEES.toString())
 		);
 	}
 }

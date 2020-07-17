@@ -54,6 +54,6 @@ public class AttackThingsThatAreNotBeesGoal extends FollowTargetGoal<LivingEntit
 	private boolean canSting()
 	{
 		BeeEntity beeentity = (BeeEntity) this.mob;
-		return beeentity.isAngry() && !beeentity.hasStung();
+		return beeentity.hasAngerTime() && !beeentity.hasStung();
 	}
 }

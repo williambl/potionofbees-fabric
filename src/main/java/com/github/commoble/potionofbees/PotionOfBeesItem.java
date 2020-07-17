@@ -1,13 +1,12 @@
 package com.github.commoble.potionofbees;
 
-import net.minecraft.advancement.criterion.Criterions;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.PotionItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
@@ -51,13 +50,13 @@ public class PotionOfBeesItem extends Item
 		PlayerEntity playerentity = entityLiving instanceof PlayerEntity ? (PlayerEntity) entityLiving : null;
 		if (playerentity instanceof ServerPlayerEntity)
 		{
-			Criterions.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
+			Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, stack);
 		}
 
 		if (!worldIn.isClient)
 		{
 			entityLiving.damage(DamageSource.CRAMMING, 4F);
-			WorldUtil.spawnAngryBees(worldIn, entityLiving.getPosVector());
+			WorldUtil.spawnAngryBees(worldIn, entityLiving.getPos());
 		}
 
 		if (playerentity != null)

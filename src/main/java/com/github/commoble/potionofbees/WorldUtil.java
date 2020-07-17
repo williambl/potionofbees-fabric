@@ -2,7 +2,7 @@ package com.github.commoble.potionofbees;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.BeeEntity;
@@ -32,12 +32,13 @@ public class WorldUtil
 		for (int i=0; i<bees; i++)
 		{
 			BlockPos spawnPos = new BlockPos(vec.x, vec.y, vec.z);
-			BeeEntity bee = EntityType.BEE.spawn(world, null, null, null, spawnPos, SpawnType.EVENT, false, false);
-			bee.setPosition(vec.x, vec.y, vec.z);
+			BeeEntity bee = EntityType.BEE.spawn(world, null, null, null, spawnPos, SpawnReason.EVENT, false, false);
+			bee.setPos(vec.x, vec.y, vec.z);
 			bee.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, maxTime, 1, false, false));
 			bee.addStatusEffect(new StatusEffectInstance(RegistryObjects.getEvanescenceEffect(), ticksToExist, 0, false, false));
 			foundTarget.ifPresent(target -> { // make bee angry at target
-				bee.setBeeAttacker(target);
+				bee.setAngryAt(target.getUuid());
+				bee.setAngerTime(1200);
 				((MobEntityTargetSelectorAccessor) bee).getTargetSelector().add(0, new AttackThingsThatAreNotBeesGoal(bee));
 			});
 		}

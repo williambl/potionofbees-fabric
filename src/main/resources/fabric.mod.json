@@ -7,7 +7,7 @@
   "description": "Adds potions that are also bees.\nBrewing Recipes:\nAwkward Potion + Honeycomb Block = Potion of Bees\nPotion of Bees + Gunpowder = Splash Potion of Bees",
   "authors": [
     "Commoble",
-    "Willbl3pic"
+    "Will BL"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/potion-of-bees",
@@ -31,9 +31,9 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.7.2",
+    "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.15.x",
-    "nbtcrafting": ">=1.2.7"
+    "minecraft": ">=1.16",
+    "nbtcrafting": "*"
   }
 }
